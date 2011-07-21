@@ -17,7 +17,7 @@ class JavascriptsController < ApplicationController
 
   private
     def all_models
-      tables = ActiveRecord::Base.connection.tables
+      tables = ActiveRecord::Base.connection.tables.select{|t| t unless t =~ /resume/}
       tables.delete("schema_migrations")
       tables.map { |table| table.camelize.singularize.constantize }
     end
